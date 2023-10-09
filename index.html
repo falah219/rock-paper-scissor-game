@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="stylesheet.css">
+    <link rel="stylesheet" href="bootstrap.css">
+    <title>Document</title>
+</head>
+<body>
+    <nav id="navbar">  
+        <div class="container-fluid">
+        <div class="title">
+            <h1>ROCK PAPER SCISSORS</h1>
+        </div>
+        </div>
+    </nav>
+
+
+
+
+    <div id="ctngame">
+        <div class="tampilan">
+        <div class="container-fluid">
+            <div class="row" style="padding-top: 15%;">
+                
+                <div class="col col1">
+                    <h2>PLAYER 1</h2>
+                    <div class="option" onclick="pickOption('kertas')"><img src="assets/kertas.png" alt=""></div>
+                    <div class="option" onclick="pickOption('gunting')"><img src="assets/gunting.png" alt=""></div>
+                    <div class="option" onclick="pickOption('batu')"><img src="assets/batu.png" alt=""></div>
+                </div>
+                <div id="score" class="col col2">
+                    <h1 id="inGame"></h1>
+                    <div id="reset" onclick="resetHasil('reset')"><img class="imgreset" src="assets/refresh.png" alt=""></div>
+                </div>
+                <div class="col col3">
+                    <h2>COM</h2>
+                    <div class="option1"><img src="assets/kertas.png" alt=""></div>
+                    <div class="option1"><img src="assets/gunting.png" alt=""></div>
+                    <div class="option1"><img src="assets/batu.png" alt=""></div>
+                </div>
+            </div>
+        </div>
+        </div>
+    </div>
+
+
+    <script>
+            class Start {
+            constructor() {
+                this.playerName = "PLAYER"
+                this.botName = "COM"
+                this.playerOption;
+                this.botOption;
+                this.winner = ""
+            }
+
+            get getBotOption() {
+                return this.botOption;
+            }
+
+            set setBotOption(option) {
+                this.botOption = option;
+            }
+
+            get getPlayerOption() {
+                return this.playerOption
+            }
+
+            set setPlayerOption(option) {
+                this.playerOption = option;
+            }
+
+            botBrain() {
+                const option = ["kertas", "gunting", "batu"];
+                const bot = option[Math.floor(Math.random() * option.length)];
+                return bot;
+            }
+
+            winCalculation() {
+                if (this.botOption == "kertas" && this.playerOption == "gunting") {
+                    return this.winner = this.playerName
+                } else if (this.botOption == "kertas" && this.playerOption == "batu") {
+                    return this.winner = this.botName;
+                } else if (this.botOption == "gunting" && this.playerOption == "kertas") {
+                    return this.winner = this.botName;
+                } else if (this.botOption == "gunting" && this.playerOption == "batu") {
+                    return this.winner = this.playerName
+                } else if (this.botOption == "batu" && this.playerOption == "kertas") {
+                    return this.winner = this.playerName
+                } else if (this.botOption == "batu" && this.playerOption == "gunting") {
+                    return this.winner = this.botName;
+                } else {
+                    return this.winner = "SEIMBANG"
+                }
+            }
+
+            matchResult() {
+                if (this.winner != "SEIMBANG") {
+                    return `${this.winner} MENANG!`;
+                } else {
+                    return `${this.winner}`;
+                }
+            }
+
+            
+
+            
+        }
+
+        function pickOption(params) {
+            const start = new Start();
+            start.setPlayerOption = params;
+            start.setBotOption = start.botBrain();
+            start.winCalculation();
+
+            const inGame = document.getElementById("inGame");
+            console.log(`${start.getPlayerOption} VS ${start.getBotOption}`);
+            inGame.textContent = `${start.getPlayerOption} VS ${start.getBotOption}` + " " + " " + `${start.matchResult()}`;
+        }
+
+        
+
+
+
+    </script>
+</body>
+</html>
